@@ -2,9 +2,10 @@
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
+require('babel-polyfill');
 const path = require('path');
-
 module.exports = {
+	entry: [ 'babel-polyfill', './app.js' ],
 	dev: {
 		// Paths
 		assetsSubDirectory: '',

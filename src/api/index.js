@@ -1,23 +1,29 @@
-axios = require('axios');
+'use strict';
+import axios from 'axios';
 axios.defaults.baseURL = 'http://138.68.129.181/api';
-
-module.exports = {
+export var api = {
 	/**
      * Logs the user in for later requests.
      * @param {String} username : The username for the user 
      * @param {String} password : The password for the user
      */
 	login: async function(username, password) {
-		var response = await axios({
-			method: 'post',
-			url: '/auth/token/create/',
-			data: {
-				username: username,
-				password: password
-			}
-		});
-		axios.defaults.headers.common['Authorization'] = `Token ${response.data
-			.auth_token}`;
+		try {
+			var response = await axios({
+				method: 'post',
+				url: '/auth/token/create/',
+				data: {
+					username: username,
+					password: password
+				}
+			});
+			axios.defaults.headers.common['Authorization'] = `Token ${response
+				.data.auth_token}`;
+			return true;
+		} catch (err) {
+			console.error(err);
+			return false;
+		}
 	},
 	/**
      * Get some data on all threads
